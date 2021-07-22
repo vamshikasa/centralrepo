@@ -1,1 +1,25 @@
 hello hari
+
+ name: Setting up LAMP Website
+  user: vagrant
+  hosts: testserver
+  become: yes
+  tasks:
+    - name: latest version of all required packages installed
+      yum:
+        name:
+          - firewalld
+          - httpd
+          - mariadb-server
+          - php
+          - php-mysql
+        state: latest
+
+    - name: firewalld enabled and running
+      service:
+        name: firewalld
+        enabled: true
+        state: started
+
+    - name: firewalld permits http service
+      firewalld:
